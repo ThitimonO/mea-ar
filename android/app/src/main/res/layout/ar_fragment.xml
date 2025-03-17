@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--ArcGIS AR View-->
+        <com.esri.arcgisruntime.toolkit.ar.ArcGISArView
+            android:id="@+id/arcGisArView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!--Mini Map Section-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintMiniMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp">
+
+            <FrameLayout
+                android:id="@+id/frameMiniMap"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/bg_circle_mini_map"
+                android:clipToOutline="true">
+
+                <com.esri.arcgisruntime.mapping.view.MapView
+                    android:id="@+id/miniMap"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </FrameLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--Center Screen-->
+        <ImageView
+            android:id="@+id/lockCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/lock_center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/lock_center"/>
+
+        <!--Distance Section-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/lockCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="16dp">
+
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="100.5 m"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--Opacity Section-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintOpacity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/constraintSetting"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="-24dp">
+
+            <!--Background opacity seekBar-->
+            <View
+                android:id="@+id/opacityBackground"
+                android:layout_height="150dp"
+                android:layout_width="32dp"
+                android:background="@drawable/bg_opacity_scene"
+                android:alpha="0.5"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <!-- SeekBar for opacity control -->
+            <SeekBar
+                android:id="@+id/opacitySeekBar"
+                android:layout_width="120dp"
+                android:layout_height="32dp"
+                android:max="100"
+                android:progress="100"
+                android:rotation="-90"
+                android:thumbTint="@color/blue_green"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <!--Opacity Symbol-->
+            <ImageView
+                android:id="@+id/opacitySymbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/opacity_symbol"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/opacity_symbol"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--Map FullScreen-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintMapFullscreen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <com.esri.arcgisruntime.mapping.view.MapView
+                android:id="@+id/mapFullscreen"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--FullScreen Mini Map-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintFullscreenMiniMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="40dp"
+            android:layout_marginStart="16dp">
+
+            <!--FullScreen Mini Map Expand-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintFullscreenMiniMapExpand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/fullscreenMiniMapExpandBackground"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:alpha="0.5"
+                    android:src="@drawable/bg_circle_mini_map"/>
+
+                <ImageView
+                    android:id="@+id/fullscreenMiniMapExpand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/fullscreen_mini_map"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--FullScreen Mini Map Exit-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintFullscreenMiniMapExit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/fullscreenMiniMapExitBackground"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:alpha="0.5"
+                    android:src="@drawable/bg_circle_mini_map"/>
+
+                <ImageView
+                    android:id="@+id/fullscreenMiniMapExit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/fullscreen_exit_mini_map"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--Main Tools-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintMainTools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="40dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp">
+
+            <!--Tools-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintTools"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <!--Background Tools-->
+                <View
+                    android:id="@+id/backgroundTools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.5"
+                    android:background="@drawable/bg_tools"/>
+
+                <!--Split Tools-->
+                <LinearLayout
+                    android:id="@+id/linearTools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <!-- Search (ซ้าย) -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintSearch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/search"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:src="@drawable/search"/>
+
+                        <TextView
+                            android:id="@+id/searchText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@+id/search"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:textSize="12sp"
+                            android:text="search"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- TOC -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintToc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/toc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/toc"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                        <TextView
+                            android:id="@+id/tocText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@+id/toc"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:textSize="12sp"
+                            android:text="TOC"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- เว้นพื้นที่ตรงกลาง (30%) -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="16dp"
+                        android:layout_weight="1"/>
+
+                    <!-- Layer -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/layer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:src="@drawable/layer"/>
+
+                        <TextView
+                            android:id="@+id/layerText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@+id/layer"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:textSize="12sp"
+                            android:text="layer"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Identify (ขวา) -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintIdentify"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/identify"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:src="@drawable/identify"/>
+
+                        <TextView
+                            android:id="@+id/identifyText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@+id/identify"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:textSize="12sp"
+                            android:text="identify"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--Adjust Button-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintAdjust"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bg_adjust_ar">
+
+                <!--Adjust Ar-->
+                <ImageView
+                    android:id="@+id/adjustAr"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/adjust_ar"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--Setting-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="40dp"
+            android:layout_marginEnd="16dp">
+
+            <ImageView
+                android:id="@+id/settingBackground"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:alpha="0.5"
+                android:src="@drawable/bg_circle_mini_map"/>
+
+            <ImageView
+                android:id="@+id/setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/setting"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--AR Calibration-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintArCalibration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/constraintMainTools"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:visibility="visible">
+
+            <com.esri.arcgisruntime.toolkit.ar.ArCalibrationView
+                android:id="@+id/arCalibration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/red"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
