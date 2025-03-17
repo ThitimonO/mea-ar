@@ -288,7 +288,7 @@ class ARFragment : Fragment(R.layout.ar_fragment) {
         } else {
             isEnableAdjust = true
             binding.constraintOpacity.visibility = View.VISIBLE
-            binding.arCalibration.visibility = View.GONE
+            binding.constraintArCalibration.visibility = View.GONE
             binding.arCalibration.unbindArcGISArView(binding.arcGisArView)
             binding.arcGisArView.sceneView.scene.baseSurface.opacity = opacity
         }
